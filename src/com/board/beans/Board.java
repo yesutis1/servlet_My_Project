@@ -8,7 +8,9 @@ public class Board {
     private int count;
     private String content;
     private String hit_count;
-
+    private String fileName;
+    private String fileRealName;
+    
     public int getIdx() {
         return idx;
     }
@@ -50,6 +52,18 @@ public class Board {
 	}
 	public void setHit_count(String hit_count) {
 		this.hit_count = hit_count;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public String getFileRealName() {
+		return fileRealName;
+	}
+	public void setFileRealName(String fileRealName) {
+		this.fileRealName = fileRealName;
 	}
     
 }

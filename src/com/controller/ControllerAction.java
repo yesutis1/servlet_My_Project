@@ -3,8 +3,10 @@ package com.controller;
 import java.io.*;
 import java.util.*;
 import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
+@WebServlet(urlPatterns = "*.do")
 public class ControllerAction extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private Map<String, Object> commandMap = new HashMap<>(); // 명령어와 명령어 처리 클래스를 쌍으로 저장

@@ -17,9 +17,7 @@ public class ListAction implements CommandAction {
         ArrayList<Board> articleList = BoardDao.getInstance().getArticleList();
         request.setAttribute("articleList", articleList);
         String pageNum = request.getParameter("pages");
-        System.out.println("pageNum : "+pageNum);
         if(pageNum == null) {
-        	System.out.println("aa");
         	pageNum="1";
         }
         int boardNum = articleList.size();

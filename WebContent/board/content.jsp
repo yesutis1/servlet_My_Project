@@ -35,7 +35,7 @@
 				        <th>날짜</th>
 				        <td>${article.regdate}</td>
 				        <th>조회수</th>
-				        <td>${reg_count}</td>
+				        <td>${article.hit_count}</td>
 				    </tr>
 				    <tr>
 				    	<th colspan="2">제목</th>
@@ -45,8 +45,23 @@
 				    	<th colspan="2">내용</th>
 				        <td colspan="6">${article.content}</td>
 				    </tr>
+				    <tr>
+				    	<td colspan="2">첨부파일 : </td>
+				    	<c:if test="${article.fileName.equals('null')}">
+            				<td colspan="6">없음</td>
+			            </c:if>
+			            <c:if test="${!article.fileName.equals('null')}">
+							<td colspan="6"><a href="${pageContext.request.contextPath}/downloadAction?file=${article.fileRealName}">${article.fileName}</a></td>            	
+			            	<tr>
+			            		<td colspan="2">이미지</td>
+				            	<td colspan="6"><img src="C:/Users/YONSAI/Desktop/My/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/My_Project/upload/${article.fileName}"></td>
+			            	</tr>
+			            </c:if>
+				    </tr>
 				</table>
-				<a href="delete.do">게시글 삭제</a><br/>
+				<c:if test="${not empty ID }">
+					<a href="delete.do?idx=${article.idx}">게시글 삭제</a><br/>
+				</c:if>
 				<c:forEach items="${articleContent}" var="article" varStatus="status">
 					<table>
 						<tr>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</tr>

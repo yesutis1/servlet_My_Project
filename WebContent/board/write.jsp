@@ -21,13 +21,14 @@
             <a href="${pageContext.request.contextPath}/user/login.do">돌아가기</a>
         </c:if>
         <c:if test="${not empty ID }">
-			<form action="insert.do" method="post" onsubmit="return formCheck();">
+			<form action="insert.do" method="post" onsubmit="return formCheck();" enctype="multipart/form-data">
 			    제목: <input type="text" name="title"/><br />
 			    작성자: ${sessionScope.member.id}<br />
 			<!-- 작성자: <input type="text" name="writer"/><br />  -->
 			<!-- 날짜: <input type="text" name="regdate"/><br />  -->
 			    내용: <br>
 			    <textarea name="content" cols="30" rows="10"></textarea><br />
+	        	파일 : <input type="file" name="file"><br />
 			    <input type="submit"/>
 			</form>
 		    <a href="list.do">돌아가기</a>

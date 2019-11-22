@@ -6,11 +6,8 @@
     int boardNum = Integer.parseInt(bNum);
     int pageNum = boardNum/10 +1;
    	int num = 1;
-	System.out.println(boardNum);
-	System.out.println(pageNum);
 	
 	String pages = (String)request.getParameter("pages");
-	System.out.println("pages = "+pages);
 	num = Integer.parseInt(pages);
 	System.out.println("pages = "+pages+", num = "+num);
 	
@@ -51,27 +48,42 @@
 		        <th>제목</th>
 		        <th>작성자</th>
 		        <th>날짜</th>
+		        <th>첨부파일</th>
 		        <th>조회수</th>
 		    </tr>
 		    <c:forEach items="${articleList}" var="article" varStatus="status" begin="${startBoard}" end="${endBoard}">
 		        <tr>
-		            <td>${status.count}</td>
+		            <td>${status.count+startBoard}</td>
 		            <td><a href="content.do?idx=${article.idx }">${article.title}</a></td>
 		            <td>${article.writer}</td>
 		            <td>${article.regdate}</td>
+		            <td>${article.fileName}</td>
 		            <td>${article.hit_count}</td>
 		        </tr>
 		    </c:forEach>
 		</table>
-
-		<c:if test="${num > 1}">
+		
             <a href="${pageContext.request.contextPath}/board/list.do?pages=1">[처음]</a>
+		<c:if test="${num > 1}">
             <a href="${pageContext.request.contextPath}/board/list.do?pages=${num-1}">[이전]</a>
         </c:if>
+        <c:if test="${num <= 1}">
+            <a href="${pageContext.request.contextPath}/board/list.do?pages=1">[이전]</a>
+        </c:if>
+        
+        <c:forEach items="${articleList }" varStatus="status" begin="1" end="${pageNum }">
+        	<a href="${pageContext.request.contextPath}/board/list.do?pages=${status.count}">${status.count}</a>
+        </c:forEach>
+        
 		<c:if test="${num < pageNum}">
 	        <a href="${pageContext.request.contextPath}/board/list.do?pages=${num+1}">[다음]</a>
-	        <a href="${pageContext.request.contextPath}/board/list.do?pages=${pageNum }">[마지막]</a>
-	    </c:if><br>
+	    </c:if>
+	    <c:if test="${num >= pageNum}">
+	        <a href="${pageContext.request.contextPath}/board/list.do?pages=${pageNum}">[다음]</a>
+	    </c:if>
+        <a href="${pageContext.request.contextPath}/board/list.do?pages=${pageNum }">[마지막]</a>
+        
+	        <br>
 		<a href="write.do">글쓰기</a>
     </jsp:body>
 </t:genericpage>

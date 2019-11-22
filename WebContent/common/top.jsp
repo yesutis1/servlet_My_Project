@@ -4,7 +4,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <a href="${pageContext.request.contextPath}">홈</a>
 <a href="${pageContext.request.contextPath}/user/dog.do">Dog</a>
-<a href="${pageContext.request.contextPath}/board/list.do">게시판</a>
+<a href="${pageContext.request.contextPath}/board/list.do">게시판_1</a>
+<a href="${pageContext.request.contextPath}/board/lists.do?page=0">게시판_2</a>
 
 
 <c:if test="${not empty ID }">
