@@ -15,15 +15,17 @@ public class List_Action implements CommandAction {
     public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
     	int startNum = 0;
     	String pageNum = request.getParameter("page");
+    	String category = request.getParameter("category");
     	startNum = Integer.parseInt(pageNum)*10;
     	System.out.println("String : "+pageNum);
     	System.out.println("int : "+startNum);
+    	System.out.println("category : "+category);
     	
     	BoardDao boardDao = new BoardDao();
     	int allPageNum = boardDao.pageNum();
-    	System.out.println(allPageNum);
-    	
-        ArrayList<Board> articleList = BoardDao.getInstance().getArticleList2(startNum);
+		System.out.println("allPageNum : "+allPageNum);
+
+        ArrayList<Board> articleList = BoardDao.getInstance().getArticleList2(startNum,category);
         request.setAttribute("articleList", articleList);
         request.setAttribute("startNum", pageNum);
         request.setAttribute("allPageNum", allPageNum);

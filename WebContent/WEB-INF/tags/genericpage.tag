@@ -11,6 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/bootstrap/4.1.3/css/bootstrap.min.css">
 <!-- 개별 페이지의 head -->
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/top.css">
 <jsp:invoke fragment="head" />
 </head>
 <body>

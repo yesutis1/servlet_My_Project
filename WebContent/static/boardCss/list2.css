@@ -1,0 +1,155 @@
+body section table.list tr {
+  text-align: center;
+}
+
+body section table.list tr th.listNum {
+  width: 70px;
+}
+
+body section table.list tr th.listCategory {
+  width: 170px;
+}
+
+body section table.list tr th.listTitle {
+  width: 300px;
+}
+
+body section table.list tr th.listWriter {
+  width: 140px;
+}
+
+body section table.list tr th.listDate {
+  width: 190px;
+}
+
+body section table.list tr th.listFile {
+  width: 140px;
+}
+
+body section table.list tr th.listComment {
+  width: 70px;
+}
+
+body section table.list tr th.listCount {
+  width: 70px;
+}
+
+body section table.list tr td {
+  color: #555;
+}
+
+body section table.list tr td.listNum {
+  width: 70px;
+}
+
+body section table.list tr td.listCategory {
+  width: 100px;
+}
+
+body section table.list tr td.listTitle {
+  width: 300px;
+}
+
+body section table.list tr td.listWriter {
+  width: 140px;
+}
+
+body section table.list tr td.listDate {
+  width: 190px;
+}
+
+body section table.list tr td.listFile {
+  width: 140px;
+}
+
+body section table.list tr td.listComment {
+  width: 70px;
+}
+
+body section table.list tr td.listCount {
+  width: 70px;
+}
+
+body section div.listButton {
+  margin-top: 10px;
+  text-align: center;
+}
+
+body section div.listButton a {
+  color: black;
+  text-decoration: none;
+}
+
+body section div.listButton a:hover {
+  color: blue;
+}
+
+body section div.writeButton {
+  text-align: right;
+}
+
+body section div#write {
+  display: none;
+  position: fixed;
+  width: 3000px;
+  top: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  padding-top: 110px;
+  padding-bottom: 150px;
+}
+
+body section div#write form {
+  width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 20px;
+  color: white;
+}
+
+body section div#write form div {
+  margin: 10px 0;
+  padding: 0;
+}
+
+body section div#write form div.category select {
+  width: 450px;
+  height: 34px;
+}
+
+body section div#write form div.title input {
+  width: 490px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 15px;
+}
+
+body section div#write form div.text div {
+  margin-bottom: 5px;
+}
+
+body section div#write form div.text textarea {
+  border-radius: 5px;
+  border: none;
+  font-size: 15px;
+  width: 550px;
+  height: 320px;
+}
+
+body section div#write form div.file input {
+  border: none;
+  font-size: 12px;
+}
+
+body section div#write form div.button {
+  text-align: center;
+  padding: 0;
+}
+
+body section div#write.block {
+  display: block;
+}
+/*# sourceMappingURL=list2.css.map */

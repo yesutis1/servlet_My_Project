@@ -12,20 +12,20 @@ import com.dao.BoardDao;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-public class InsertAction implements CommandAction {
+public class ModifyAction implements CommandAction {
 
-    @Override
-    public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-    	HttpSession session = request.getSession();
+	@Override
+	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		HttpSession session = request.getSession();
     	request.setCharacterEncoding("utf-8");
 //    	MultipartRequest multipartRequest = new MultipartRequest(request, "/upload/",1024*1024*10,"UTF-8", new DefaultFileRenamePolicy());
     	MultipartRequest multipartRequest = new MultipartRequest(request, "C:\\Users\\YONSAI\\Desktop\\My\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\My_Project\\upload",1024*1024*1024,"UTF-8", new DefaultFileRenamePolicy());
-
+    	
+    	String idx = multipartRequest.getParameter("idx");
+    	int intIdx = Integer.parseInt(idx);
+    	String category = multipartRequest.getParameter("category");
+    	String writer = (String) session.getAttribute("ID");
         String title = multipartRequest.getParameter("title");
-        String writer = (String) session.getAttribute("ID");
-        String regdate = multipartRequest.getParameter("regdate");
-        String category = multipartRequest.getParameter("category");
-        int count = 1;
         /* 내용은 상세보기에서 사용함. */
         String content = multipartRequest.getParameter("content");
         String fileName = multipartRequest.getOriginalFileName("file");
@@ -56,18 +56,17 @@ public class InsertAction implements CommandAction {
         }
         
         Board article = new Board();
+        article.setIdx(intIdx);
         article.setTitle(title);
         article.setCategory(category);
         article.setWriter(writer);
-        article.setRegdate(regdate);
-        article.setCount(count);
         article.setContent(content);
         article.setFileName(fileName);
         article.setFileRealName(fileRealName);
         
-        BoardDao.getInstance().insertArticle(article);
-
-        return "insert.jsp";
-    }
+        BoardDao.getInstance().modifyArticle(article);
+		
+		return "content.do?idx="+idx;
+	}
 
 }

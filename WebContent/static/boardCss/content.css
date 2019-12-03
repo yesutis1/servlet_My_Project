@@ -1,0 +1,42 @@
+body section table.lookContent tr.contentDeleteButton {
+  text-align: right;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+}
+
+body section table.commentList {
+  width: 600px;
+}
+
+body section table.commentList tr.commentDeleteButton {
+  text-align: right;
+  margin-bottom: 30px;
+}
+
+body section div.writeComment {
+  padding: 20px 0;
+  margin-bottom: 20px;
+  border-top: 1px solid lightgrey;
+  border-bottom: 1px solid lightgrey;
+}
+
+body section div.writeComment form textarea {
+  font-size: 12px;
+}
+
+body section div.writeComment form div.commentButton {
+  text-align: left;
+}
+
+body section div.backButton {
+  text-align: right;
+}
+
+body section div#modifyContent {
+  display: none;
+}
+
+body section div#modifyContent.openModifyContent {
+  display: block;
+}
+/*# sourceMappingURL=content.css.map */

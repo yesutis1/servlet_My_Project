@@ -50,23 +50,34 @@ public class BoardDao extends CommonDao {
     }
     
 //  list2 게시글 불러오기
-    public ArrayList<Board> getArticleList2(int startNum) throws SQLException {
+    public ArrayList<Board> getArticleList2(int startNum, String category) throws SQLException {
     	ResultSet rs = null;
-//      게시글 가져오기
-        String sql2 = "SELECT a.idx, a.title, b.user_id AS writer,fileName, fileRealName, a.reg_date, a.hit_count FROM BOARD AS a LEFT JOIN USER AS b ON a.user_id = b.idx ORDER BY a.idx DESC LIMIT "+startNum+",10;";
+    	String sql2;
+    	if(category.equals("all")) {
+    		sql2 = "SELECT a.idx, a.category ,a.title, b.user_id AS writer,a.fileName, a.fileRealName, a.reg_date, a.hit_count, COUNT(c.num) AS comment"
+    				+" FROM BOARD AS a LEFT JOIN USER AS b ON a.user_id = b.idx LEFT JOIN CONTENT AS c"
+    				+" ON a.idx = c.num GROUP BY a.idx DESC LIMIT "+startNum+",10;";    		
+    	}else {
+    		sql2 = "SELECT a.idx, a.category ,a.title, b.user_id AS writer,a.fileName, a.fileRealName, a.reg_date, a.hit_count, COUNT(c.num) AS comment"
+    				+" FROM BOARD AS a LEFT JOIN USER AS b ON a.user_id = b.idx LEFT JOIN CONTENT AS c"
+    				+" ON a.idx = c.num WHERE category='"+category+"' GROUP BY a.idx DESC LIMIT "+startNum+",10;";
+    	}
+    	
         rs = openConnections().executeQuery(sql2);
         ArrayList<Board> articleList = new ArrayList<Board>();
         while (rs.next()) {
             Board article = new Board();
-
+            
             article.setIdx(rs.getInt("idx"));
+            article.setCategory(rs.getString("category"));
             article.setTitle(rs.getString("title"));
             article.setWriter(rs.getString("writer"));
             article.setFileName(rs.getString("fileName"));
             article.setFileRealName(rs.getString("fileRealName"));
             article.setRegdate(rs.getString("reg_date"));
             article.setHit_count(rs.getString("hit_count"));
-            articleList.add(article);
+            article.setCommentCount(rs.getInt("comment"));
+            articleList.add(article);             
         }
         closeConnections();
         return articleList;
@@ -92,7 +103,7 @@ public class BoardDao extends CommonDao {
         String sql = "UPDATE my_site.BOARD SET hit_count  = hit_count+1 WHERE idx = "+idx+";";
         rs = openConnections().executeQuery(sql);
         
-        String sql2 = "SELECT a.idx, a.title, b.user_id AS writer, a.fileName, a.fileRealName, a.reg_date, a.content, a.hit_count FROM BOARD AS a LEFT JOIN USER AS b ON a.user_id = b.idx WHERE a.idx="+idx+";";
+        String sql2 = "SELECT a.idx, a.category, a.title, b.user_id AS writer, a.fileName, a.fileRealName, a.reg_date, a.content, a.hit_count FROM BOARD AS a LEFT JOIN USER AS b ON a.user_id = b.idx WHERE a.idx="+idx+";";
         rs = openConnections().executeQuery(sql2);
         
         ArrayList<Board> articleList = new ArrayList<Board>();
@@ -100,6 +111,7 @@ public class BoardDao extends CommonDao {
             Board article = new Board();
 
             article.setIdx(rs.getInt("idx"));
+            article.setCategory(rs.getString("category"));
             article.setTitle(rs.getString("title"));
             article.setWriter(rs.getString("writer"));
             article.setFileName(rs.getString("fileName"));
@@ -148,9 +160,16 @@ public class BoardDao extends CommonDao {
     		fileName = rs.getString("fileRealName");
     	}
     	closeConnections();
-    	Path path = Paths.get("C:\\Users\\YONSAI\\Desktop\\My\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\My_Project\\upload\\"+fileName);
-    	if(user_id.equals(id)) {
+    	
+    	System.out.println("user_id = " + user_id);
+    	System.out.println("fileName = " + fileName);
+    	
+    	if(fileName.equals(null)) {
+    		Path path = Paths.get("C:\\Users\\YONSAI\\Desktop\\My\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\My_Project\\upload\\"+fileName);
     		Files.delete(path);
+    		System.out.println("file delete");    		
+    	}
+    	if(user_id.equals(id)) {
 	        String sql2 = "DELETE FROM BOARD WHERE idx="+idx+";";
 	        openConnections().executeQuery(sql2);
 	        return 0;
@@ -190,12 +209,11 @@ public class BoardDao extends CommonDao {
     	while (rs.next()) {
             idx = rs.getInt("idx");
         }
-        closeConnections();
-        
+        closeConnections();       
 //    	게시글 작성
     	String sql2 = "INSERT INTO BOARD "
-    			+"(TITLE, hit_count, content,fileName,fileRealName, user_id) "
-    			+"VALUES ('"+article.getTitle()+"','"+article.getCount()+"','"+article.getContent()+"','"+article.getFileName()+"','"+article.getFileRealName()+"','"+idx+"');";
+    			+"(TITLE, category, hit_count, content,fileName,fileRealName, user_id) "
+    			+"VALUES ('"+article.getTitle()+"','"+article.getCategory()+"','"+article.getCount()+"','"+article.getContent()+"','"+article.getFileName()+"','"+article.getFileRealName()+"','"+idx+"');";
     	openConnections().executeQuery(sql2);
     }
     
@@ -208,22 +226,15 @@ public class BoardDao extends CommonDao {
     	openConnections().executeQuery(sql2);
     }
     
-//  ---------------------------------------------------------------------------------------------
-//    파일첨부
-    public int upload(String fileName, String fileRealName,Board article) throws SQLException {
-    	ResultSet rs = null;
- 		String sql = "INSERT INTO FILE (fileName,fileRealName, boardNum) VALUES ('"+fileName+"','"+fileRealName+"','"+article.getIdx()+"');";
-
- 		System.out.println(sql);
- 		rs = openConnections().executeQuery(sql);
- 		try {
- 			PreparedStatement pstmt  = con.prepareStatement(sql);
- 			pstmt.setString(1,fileName);
- 			pstmt.setString(2,fileRealName);
- 			return pstmt.executeUpdate(); 
- 		} catch (Exception e) {
- 			// TODO: handle exception
- 		}
- 		return -1;
- 	}
+//    게시글 수정
+    public void modifyArticle(Board article) throws SQLException {
+        String sql = "UPDATE BOARD SET "+
+            "title = '"+article.getTitle()+
+            "', category = '"+article.getCategory()+
+            "', content = '"+article.getContent()+
+            "', fileName = '"+article.getFileName()+
+            "', fileRealName = '"+article.getFileRealName()+
+            "' "+ "WHERE idx = "+article.getIdx();
+        openConnections().executeQuery(sql);
+    }
 }

@@ -1,0 +1,142 @@
+
+body{
+    section{
+        table.list{
+            tr{
+                text-align: center;
+                th{
+                    &.listNum{
+                        width: 70px;
+                    }
+                    &.listCategory{
+                        width: 170px;
+                    }
+                    &.listTitle{
+                        width: 300px;
+                    }
+                    &.listWriter{
+                        width: 140px;
+                    }
+                    &.listDate{
+                        width: 190px;
+                    }
+                    &.listFile{
+                        width: 140px;
+                    }
+                    &.listComment{
+                        width: 70px;
+                    }
+                    &.listCount{
+                        width: 70px;
+                    }
+                }
+                td{
+                    color: #555;
+                    &.listNum{
+                        width: 70px;
+                    }
+                    &.listCategory{
+                        width: 100px;
+                    }
+                    &.listTitle{
+                        width: 300px;
+                    }
+                    &.listWriter{
+                        width: 140px;
+                    }
+                    &.listDate{
+                        width: 190px;
+                    }
+                    &.listFile{
+                        width: 140px;
+                    }
+                    &.listComment{
+                        width: 70px;
+                    }
+                    &.listCount{
+                        width: 70px;
+                    }
+                }
+            }
+        }
+       
+        div.listButton{
+            margin-top: 10px;
+            text-align: center;
+            a{
+                color: black;
+                text-decoration: none;
+            }
+            a:hover{
+                color: blue;
+            }
+        }
+        div.writeButton{
+            text-align: right;
+        }
+        div#write{
+            display: none;
+            position: fixed;
+            width: 3000px;
+            top: 0;
+            left: 50%;
+            transform:translateX(-50%);
+            background-color: rgba(0,0,0,0.7);
+            padding-top: 110px;
+            padding-bottom: 150px;
+            form{
+                width: 550px;
+                margin-left: auto; margin-right: auto;
+                font-size: 20px;
+                color: white;
+                div{
+                    margin: 10px 0;
+                    padding: 0;
+                }
+                div.category{
+                    select{
+                        width: 450px;
+                        height: 34px;
+                    }
+                }
+                div.title{
+                    input{
+                        width: 490px;
+                        padding: 10px;
+                        border-radius: 5px;
+                        border: none;
+                        font-size: 15px;
+                    }
+                }
+                // div.writer{
+
+                // }
+                div.text{
+                    div{
+                        margin-bottom: 5px;
+                    }
+                    textarea{
+                        border-radius: 5px;
+                        border: none;
+                        font-size: 15px;
+                        width: 550px;
+                        height: 320px;
+                    }
+                }
+                div.file{
+                    input{
+                        border: none;
+                        font-size: 12px;
+                    }
+                }
+                div.button{
+                    text-align: center;
+                    padding: 0;
+                }
+            }
+        }
+        div#write.block{
+            display: block;
+        }
+    }
+}

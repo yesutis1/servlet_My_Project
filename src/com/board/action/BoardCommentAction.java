@@ -12,7 +12,7 @@ import com.board.beans.Board;
 import com.controller.CommandAction;
 import com.dao.BoardDao;
 
-public class BoardContentAction implements CommandAction {
+public class BoardCommentAction implements CommandAction {
 
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
@@ -35,7 +35,7 @@ public class BoardContentAction implements CommandAction {
 			
 			BoardDao.getInstance().insertArticleContent(article);
 			
-			return "list.do";
+			return "content.do?idx="+idx;
 			
 		} catch (Exception e) {
 			System.out.println("오류 발생");
@@ -44,7 +44,7 @@ public class BoardContentAction implements CommandAction {
 			script.println("<script>alert('댓글입력에 오류 발생');</script>");
 			script.println("<script>location.href='modify';</script>");
 			script.close();
-			return "list.do";
+			return "lists.do?page=0&category=all";
 		}
 	}
 }

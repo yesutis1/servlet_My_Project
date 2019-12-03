@@ -102,6 +102,28 @@ public class MemberDao extends CommonDao {
     }
     
     /*
+     * 회원가입 여부 확인 API
+     */
+    public boolean isMember(String id) {
+        PreparedStatement pstmt = null;
+        String query = "SELECT * FROM USER WHERE user_id=?";
+        boolean res = false;
+        openConnection();
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            res = rs.next();
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return res;
+    }
+    
+    /*
      * 기존 회원정보 확인
      */
     public MemberInfo getMember(String id) {
@@ -112,6 +134,57 @@ public class MemberDao extends CommonDao {
         try {
             pstmt = con.prepareStatement(query);
             pstmt.setString(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            rs.next();
+            member.setId(rs.getString("user_id"));
+//            member.setPass(rs.getString("user_pass"));
+            member.setName(rs.getString("user_name"));
+            member.setBirthday(rs.getString("user_birthday"));
+            member.setPhone(rs.getString("user_phone"));
+            member.setEmail(rs.getString("user_email"));
+            member.setReg_date(rs.getTimestamp("reg_date"));
+            member.setMod_date(rs.getTimestamp("mod_date"));
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return member;
+    }
+    
+    /*
+     * 기존 회원정보 비밀번호 여부 확인 API
+     */
+    public boolean isMemberPass(String pass) {
+        PreparedStatement pstmt = null;
+        String query = "SELECT * FROM USER WHERE user_pass=?";
+        boolean res = false;
+        openConnection();
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, pass);
+            ResultSet rs = pstmt.executeQuery();
+            res = rs.next();
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return res;
+    }
+    
+    /*
+     * 가입한 회원정보 확인(list)
+     */
+    public MemberInfo getMemberList() {
+        PreparedStatement pstmt = null;
+        MemberInfo member = new MemberInfo();
+        String query = "SELECT * FROM USER";
+        openConnection();
+        try {
+            pstmt = con.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
             rs.next();
             member.setId(rs.getString("user_id"));

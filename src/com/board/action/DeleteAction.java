@@ -18,6 +18,9 @@ public class DeleteAction implements CommandAction {
         HttpSession session = request.getSession();
         String id = (String) session.getAttribute("ID");
         
+        System.out.println("int idx  = "+idx);
+        System.out.println("String id = "+id);
+        
         int result = 0;
         result = BoardDao.getInstance().deleteArticle(idx, id);
         if(result == 0) {        	
@@ -25,7 +28,7 @@ public class DeleteAction implements CommandAction {
         }else {
         	PrintWriter script = response.getWriter();
         	script.println("<script>alert('로그인 아이디와 게시글 작성자가 다릅니다!!.')</script>;");
-			script.println("<script>location.href='list.do'</script>;");
+			script.println("<script>location.href='lists.do?page=0&category=all'</script>;");
 			script.close();
         	return null;
         }

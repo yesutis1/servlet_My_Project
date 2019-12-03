@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AACA,AACI,IADA,CACA,GAAG,CAAA;EACC,UAAU,EAAE,MAAM;EAClB,OAAO,EAAE,IAAI;CAUhB;;AAbL,AAKQ,IALJ,CACA,GAAG,CAIC,CAAC,CAAA;EACG,OAAO,EAAE,IAAI;EACb,KAAK,EAAE,KAAK;EACZ,eAAe,EAAE,IAAI;CACxB;;AATT,AAUQ,IAVJ,CACA,GAAG,CASC,CAAC,AAAA,MAAM,CAAA;EACH,KAAK,EAAE,IAAI;CACd",
+    "sources": [
+        "top.scss"
+    ],
+    "names": [],
+    "file": "top.css"
+}

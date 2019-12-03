@@ -10,6 +10,9 @@ public class Board {
     private String hit_count;
     private String fileName;
     private String fileRealName;
+    private int commentCount;
+    private String category;
+    
     
     public int getIdx() {
         return idx;
@@ -64,6 +67,18 @@ public class Board {
 	}
 	public void setFileRealName(String fileRealName) {
 		this.fileRealName = fileRealName;
+	}
+	public int getCommentCount() {
+		return commentCount;
+	}
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
     
 }

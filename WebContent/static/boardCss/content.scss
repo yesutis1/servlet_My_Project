@@ -1,0 +1,42 @@
+
+body{
+    section{
+        table.lookContent{
+            tr.contentDeleteButton{
+                text-align: right;
+                padding-bottom: 30px;
+                margin-bottom: 30px;
+            }
+        }
+        table.commentList{
+            width: 600px;
+            tr.commentDeleteButton{
+                text-align: right;
+                margin-bottom: 30px;
+            }
+        }
+        div.writeComment{
+            padding: 20px 0;
+            margin-bottom: 20px;
+            border-top: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+            form{
+                textarea{
+                    font-size: 12px;
+                }
+                div.commentButton{
+                    text-align: left;
+                }
+            }
+        }
+        div.backButton{
+            text-align: right;
+        }
+        div#modifyContent{
+            display: none;
+            &.openModifyContent{
+                display: block;
+            }
+        }         
+    }
+}

@@ -1,6 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>list.jsp</title>
+<link rel="stylesheet" href="../static/css/top.css">
+<link rel="stylesheet" href="../static/css/index.css">
+<link rel="stylesheet" href="../static/bootstrap/4.1.3/css/bootstrap.css">
+</head>
+<body>
 <%
 	String bNum = (String)request.getParameter("boardNum");
     int boardNum = Integer.parseInt(bNum);
@@ -19,30 +30,12 @@
 <c:set var="startBoard" value="<%=startBoard %>" />
 <c:set var="endBoard" value="<%=endBoard %>" />
 
-<style>
-    body div.list table, th, td {
-        border: 1px solid green;
-    }
-    th {
-        background-color: green;
-        color: white;
-    }
-</style>
 
-<t:genericpage>
-    <jsp:attribute name="head">
-        <title>list.jsp</title>
-    </jsp:attribute>
-    <jsp:attribute name="header">
-        <!-- 머릿말 추가 -->
-    </jsp:attribute>
-    <jsp:attribute name="footer">
-        <!-- 꼬릿말 추가 -->
-    </jsp:attribute>
-    
-    <jsp:body>
+
+	<c:import url="/common/top_import.jsp"></c:import>
+	<section>
 		<h1>게시글 리스트</h1>
-		<table style="text-align: center;">
+		<table class="table">
 		    <tr>
 		        <th>번호</th>
 		        <th>제목</th>
@@ -85,8 +78,6 @@
         
 	        <br>
 		<a href="write.do">글쓰기</a>
-    </jsp:body>
-</t:genericpage>
-
-
-
+	</section>
+</body>
+</html>
