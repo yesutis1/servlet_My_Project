@@ -19,6 +19,16 @@
 	
 	<section>
 		<h1>게시글 리스트</h1>
+		<div class="search">
+			<form action="lists.do">
+				<input type="hidden" value="0" name="page">
+				<input type="hidden" value="${category }" name="category">
+				<div>
+					<input type="text" name="search" class="form-control" placeholder="글 제목 검색하기" value="${search }">
+					<button type="submit" class="btn btn-outline-primary btn-sm">검색</button>
+				</div>
+			</form>
+		</div>
 		<!-- table bootstrap -->
 		<table class="table list table-hover">
 		    <tr>
@@ -60,28 +70,27 @@
 		        </tr>
 		    </c:forEach>
 		</table>
-		<div class="listButton">
-	    	<a href="${pageContext.request.contextPath}/board/lists.do?page=0">[ 처음 ]</a>
-	    	<c:if test="${startNum == 0 }">
-		     	<a href="${pageContext.request.contextPath}/board/lists.do?page=0">[ 이전 ]</a>    	
-	    	</c:if>
-			<c:if test="${startNum != 0 }">
-		     	<a href="${pageContext.request.contextPath}/board/lists.do?page=${startNum-1}">[ 이전 ]</a>    	
-	    	</c:if>
-	        
-	        <c:forEach items="${articleList}" varStatus="status" begin="0" end="${allPageNum -1}">
-	        	<a href="${pageContext.request.contextPath}/board/lists.do?page=${status.count-1}"> ${status.count}</a>
-	        </c:forEach>
-	        
-	    	<c:if test="${startNum == allPageNum-1 }">
-		     	<a href="${pageContext.request.contextPath}/board/lists.do?page=${allPageNum-1}">[ 다음 ]</a>    	
-	    	</c:if> 
-	        <c:if test="${startNum != allPageNum-1 }">  	
-		        <a href="${pageContext.request.contextPath}/board/lists.do?page=${startNum+1}">[ 다음 ]</a>
-	    	</c:if>
-	        <a href="${pageContext.request.contextPath}/board/lists.do?page=${allPageNum-1}">[ 마지막 ]</a>
-	        
-		</div>
+			<div class="listButton">
+		    	<a href="${pageContext.request.contextPath}/board/lists.do?page=0&category=${category}&search=${search }">[ 처음 ]</a>
+		    	<c:if test="${startNum == 0 }">
+			     	<a href="${pageContext.request.contextPath}/board/lists.do?page=0&category=${category}&search=${search }">[ 이전 ]</a>    	
+		    	</c:if>
+				<c:if test="${startNum != 0 }">
+			     	<a href="${pageContext.request.contextPath}/board/lists.do?page=${startNum-1}&category=${category}&search=${search }">[ 이전 ]</a>    	
+		    	</c:if>
+		        
+		        <c:forEach items="${articleList}" varStatus="status" begin="0" end="${allPageNum -1}">
+		        	<a href="${pageContext.request.contextPath}/board/lists.do?page=${status.count-1}&category=${category}&search=${search }"> ${status.count}</a>
+		        </c:forEach>
+		        
+		    	<c:if test="${startNum == allPageNum-1 }">
+			     	<a href="${pageContext.request.contextPath}/board/lists.do?page=${allPageNum-1}&category=${category}&search=${search }">[ 다음 ]</a>    	
+		    	</c:if> 
+		        <c:if test="${startNum != allPageNum-1 }">  	
+			        <a href="${pageContext.request.contextPath}/board/lists.do?page=${startNum+1}&category=${category}&search=${search }">[ 다음 ]</a>
+		    	</c:if>
+		        <a href="${pageContext.request.contextPath}/board/lists.do?page=${allPageNum-1}&category=${category}&search=${search }">[ 마지막 ]</a>
+			</div>
 		
         <div class="writeButton">
 			<!--a href="write.do">글쓰기</a-->
@@ -92,14 +101,14 @@
 			<c:import url="write_import.jsp"></c:import>
 		</div>
 		
-		<%
+		<!-- %
 			//String directory = application.getRealPath("/upload/");
 			//String files[] = new File(directory).list();
 			//for(String file:files){
 			//	out.write("<a href=\""+request.getContextPath() + "/downloadAction?file=" +
 			//		java.net.URLEncoder.encode(file,"UTF-8") + "\">" + file + "</a><br>");
 			//}
-		%>
+		%-->
 	</section>
 	
 	<!-- footer -->

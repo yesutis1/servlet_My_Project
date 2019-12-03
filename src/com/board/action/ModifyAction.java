@@ -30,7 +30,6 @@ public class ModifyAction implements CommandAction {
         String content = multipartRequest.getParameter("content");
         String fileName = multipartRequest.getOriginalFileName("file");
 		String fileRealName = multipartRequest.getFilesystemName("file");
-        
         System.out.println("title : "+title+", writer : "+writer+", content : "+ content+", fileName : "+fileName+", realFileName : "+fileRealName);
         
         if(title == null || title == "") {
@@ -61,8 +60,8 @@ public class ModifyAction implements CommandAction {
         article.setCategory(category);
         article.setWriter(writer);
         article.setContent(content);
-        article.setFileName(fileName);
-        article.setFileRealName(fileRealName);
+    	article.setFileName(fileName);
+    	article.setFileRealName(fileRealName);        	
         
         BoardDao.getInstance().modifyArticle(article);
 		

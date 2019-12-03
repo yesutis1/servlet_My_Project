@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.websocket.Session;
@@ -82,6 +83,41 @@ public class BoardDao extends CommonDao {
         closeConnections();
         return articleList;
     }
+    
+//  list2 게시글 불러오기 검색
+    public ArrayList<Board> getArticleListSearch(int startNum, String category, String search) throws SQLException {
+    	ResultSet rs = null;
+    	String sql2;
+    	if(category.equals("all")) {
+    		sql2 = "SELECT a.idx, a.category ,a.title, b.user_id AS writer,a.fileName, a.fileRealName, a.reg_date, a.hit_count, COUNT(c.num) AS comment"
+    				+" FROM BOARD AS a LEFT JOIN USER AS b ON a.user_id = b.idx LEFT JOIN CONTENT AS c"
+    				+" ON a.idx = c.num WHERE a.title LIKE '%"+search+"%' GROUP BY a.idx DESC LIMIT "+startNum+",10;";    		
+    	}else {
+    		sql2 = "SELECT a.idx, a.category ,a.title, b.user_id AS writer,a.fileName, a.fileRealName, a.reg_date, a.hit_count, COUNT(c.num) AS comment"
+    				+" FROM BOARD AS a LEFT JOIN USER AS b ON a.user_id = b.idx LEFT JOIN CONTENT AS c"
+    				+" ON a.idx = c.num WHERE category='"+category+"' GROUP BY a.idx DESC LIMIT "+startNum+",10;";
+    	}
+    	
+        rs = openConnections().executeQuery(sql2);
+        ArrayList<Board> articleList = new ArrayList<Board>();
+        while (rs.next()) {
+            Board article = new Board();
+            
+            article.setIdx(rs.getInt("idx"));
+            article.setCategory(rs.getString("category"));
+            article.setTitle(rs.getString("title"));
+            article.setWriter(rs.getString("writer"));
+            article.setFileName(rs.getString("fileName"));
+            article.setFileRealName(rs.getString("fileRealName"));
+            article.setRegdate(rs.getString("reg_date"));
+            article.setHit_count(rs.getString("hit_count"));
+            article.setCommentCount(rs.getInt("comment"));
+            articleList.add(article);             
+        }
+        closeConnections();
+        return articleList;
+    }
+    
     public int pageNum() throws SQLException {
     	 ResultSet rs = null;
 //       게시글 수량 확인하기
@@ -117,7 +153,15 @@ public class BoardDao extends CommonDao {
             article.setFileName(rs.getString("fileName"));
             article.setFileRealName(rs.getString("fileRealName"));
             article.setRegdate(rs.getString("reg_date"));
-            article.setContent(rs.getString("content"));
+            
+//            엔터값 치환(변경)하기 게시글 상세보기에 들어갈 내용
+            String content = rs.getString("content");
+            System.out.println("content : "+content);
+            content=content.replaceAll("\r\n", "<br>");
+            System.out.println("after content : "+content);
+            article.setContent(content);
+//            글 수정에 들어갈 내용
+            article.setContentModify(rs.getString("content"));
             article.setHit_count(rs.getString("hit_count"));
             articleList.add(article);
         }
@@ -138,7 +182,15 @@ public class BoardDao extends CommonDao {
     		System.out.println(article.getIdx());
     		article.setWriter(rs.getString("user_id"));
     		System.out.println(article.getWriter());
-    		article.setContent(rs.getString("text"));
+    		
+//          엔터값 치환(변경)하기 댓글 상세보기에 들어갈 내용
+    		String text = rs.getString("text");
+          	System.out.println("text : "+text);
+          	text=text.replaceAll("\r\n", "<br>");
+          	System.out.println("after text : "+text);
+          	article.setContent(text);
+    		
+//    		article.setContent(rs.getString("text"));
     		article.setRegdate(rs.getString("reg_date"));
     		articleContent.add(article);
     	}
@@ -228,13 +280,22 @@ public class BoardDao extends CommonDao {
     
 //    게시글 수정
     public void modifyArticle(Board article) throws SQLException {
-        String sql = "UPDATE BOARD SET "+
-            "title = '"+article.getTitle()+
-            "', category = '"+article.getCategory()+
-            "', content = '"+article.getContent()+
-            "', fileName = '"+article.getFileName()+
-            "', fileRealName = '"+article.getFileRealName()+
-            "' "+ "WHERE idx = "+article.getIdx();
+    	String sql="";
+    	if(article.getFileName() == null) {
+    		sql = "UPDATE BOARD SET "+
+    				"title = '"+article.getTitle()+
+    				"', category = '"+article.getCategory()+
+    				"', content = '"+article.getContent()+
+    				"' "+ "WHERE idx = "+article.getIdx();
+    	}else {
+    		sql = "UPDATE BOARD SET "+
+				"title = '"+article.getTitle()+
+				"', category = '"+article.getCategory()+
+				"', content = '"+article.getContent()+
+				"', fileName = '"+article.getFileName()+
+				"', fileRealName = '"+article.getFileRealName()+
+				"' "+ "WHERE idx = "+article.getIdx();
+    	}
         openConnections().executeQuery(sql);
     }
 }

@@ -13,6 +13,9 @@ public class List_Action implements CommandAction {
 
     @Override
     public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
+    	String search = request.getParameter("search");
+		System.out.println("search : "+search);
+    	
     	int startNum = 0;
     	String pageNum = request.getParameter("page");
     	String category = request.getParameter("category");
@@ -24,11 +27,18 @@ public class List_Action implements CommandAction {
     	BoardDao boardDao = new BoardDao();
     	int allPageNum = boardDao.pageNum();
 		System.out.println("allPageNum : "+allPageNum);
-
-        ArrayList<Board> articleList = BoardDao.getInstance().getArticleList2(startNum,category);
+		ArrayList<Board> articleList = new ArrayList<Board>();
+		if(search == null) {
+			articleList = BoardDao.getInstance().getArticleList2(startNum,category);			
+		}else {
+			articleList = BoardDao.getInstance().getArticleListSearch(startNum,category,search);
+		}
         request.setAttribute("articleList", articleList);
         request.setAttribute("startNum", pageNum);
         request.setAttribute("allPageNum", allPageNum);
+        request.setAttribute("category", category);
+        request.setAttribute("search", search);
+        
         return "list2.jsp";
     }
 

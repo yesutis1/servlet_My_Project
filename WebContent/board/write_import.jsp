@@ -38,8 +38,8 @@
 		
 		<div class="button">
 			<!-- bootstrap -->
-			<input type="submit" class="btn btn-success btn-sm"/>
-			<button type="button" id="writeCancelButton" class="btn btn-light btn-sm">취소</button>
+			<input type="submit" class="btn btn-success"/>
+			<button type="button" id="writeCancelButton" class="btn btn-light">취소</button>
 		</div>
 	</form>
 </c:if>

@@ -77,7 +77,7 @@
         <a href="${pageContext.request.contextPath}/board/list.do?pages=${pageNum }">[마지막]</a>
         
 	        <br>
-		<a href="write.do">글쓰기</a>
+		<!-- a href="write.do">글쓰기</a-->
 	</section>
 </body>
 </html>

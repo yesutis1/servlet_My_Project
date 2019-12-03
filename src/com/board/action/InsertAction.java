@@ -18,8 +18,10 @@ public class InsertAction implements CommandAction {
     public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
     	HttpSession session = request.getSession();
     	request.setCharacterEncoding("utf-8");
-//    	MultipartRequest multipartRequest = new MultipartRequest(request, "/upload/",1024*1024*10,"UTF-8", new DefaultFileRenamePolicy());
-    	MultipartRequest multipartRequest = new MultipartRequest(request, "C:\\Users\\YONSAI\\Desktop\\My\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\My_Project\\upload",1024*1024*1024,"UTF-8", new DefaultFileRenamePolicy());
+//    	로컬디스크 c에 저장
+//    	MultipartRequest multipartRequest = new MultipartRequest(request, "/",1024*1024*1024,"UTF-8", new DefaultFileRenamePolicy());
+//    	로컬디스크 c에서 프로젝트 경로에 저장
+    	MultipartRequest multipartRequest = new MultipartRequest(request, "C:\\Users\\YONSAI\\Desktop\\My\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\My_Project\\upload",1024*1024*10,"UTF-8", new DefaultFileRenamePolicy());
 
         String title = multipartRequest.getParameter("title");
         String writer = (String) session.getAttribute("ID");

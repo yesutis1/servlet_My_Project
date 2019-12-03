@@ -9,23 +9,37 @@
 <c:if test="${not empty ID }">
 	<c:forEach items="${articleList}" var="article">
 		<form action="modify.do" method="post" onsubmit="return formCheck()" enctype="multipart/form-data">
-			<input type="hidden" name="idx" value="${article.idx }">
-			번호: ${article.idx }<br/>
-			카테고리 : <select name="category" value="${article.category }">
-				<option value="일반">일반</option>
-				<option value="가입인사">가입인사</option>
-				<option value="공지사항">공지사항</option>
-			</select><br />
-			<input type="hidden" value="${article.writer }">
-			작성자: ${article.writer }<br/>
-		    제목: <input type="text" name="title" value="${article.title }"/><br />
-		    <!-- 작성자: <input type="text" name="writer"/><br /> -->
-		    내용: <textarea name="content" cols="30" rows="10">${article.content }</textarea><br />
+            <div>
+                <input type="hidden" name="idx" value="${article.idx }">
+                번호: ${article.idx }
+            </div>
+            <div class="category">
+                카테고리 : <select name="category" value="${article.category }" class="custom-select">
+                    <option value="일반">일반</option>
+                    <option value="가입인사">가입인사</option>
+                    <option value="공지사항">공지사항</option>
+                </select>
+            </div>
+            <div>
+                <input type="hidden" value="${article.writer }">
+                작성자: ${article.writer }<br/>
+            </div>
+            <div class="title">
+                제목: <input type="text" name="title" value="${article.title }"/><br />
+                <!-- 작성자: <input type="text" name="writer"/><br /> -->
+            </div>
+            <div class="text">
+                <div>내용: </div>
+                <textarea name="content" cols="30" rows="10">${article.contentModify }</textarea><br />
+            </div>
 		    <div class="file">
 			    <label >Choose file </label>
-			    <input type="file" name="file">
+			    <input type="file" name="file"  alt="${pageContext.request.contextPath}/upload/${article.fileName}">
 			</div>
-		    <input type="submit" class="btn btn-outline-success"/>
+			<div class="button">
+			    <input type="submit" class="btn btn-success"/>
+			    <a class="btn btn-light" onclick="modifyContentAction()">취소</a>
+			</div>
 		</form>
 	</c:forEach>
 </c:if>

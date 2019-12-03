@@ -1,3 +1,25 @@
+body section div.search {
+  height: 60px;
+}
+
+body section div.search div {
+  margin-left: auto;
+  margin-right: auto;
+  width: 700px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+body section div.search div input {
+  width: 550px;
+  margin-right: 5px;
+}
+
+body section div.search div button {
+  width: 65px;
+}
+
 body section table.list tr {
   text-align: center;
 }
@@ -8,6 +30,7 @@ body section table.list tr th.listNum {
 
 body section table.list tr th.listCategory {
   width: 170px;
+  padding: 5px 12px;
 }
 
 body section table.list tr th.listTitle {
@@ -60,6 +83,8 @@ body section table.list tr td.listDate {
 
 body section table.list tr td.listFile {
   width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 body section table.list tr td.listComment {

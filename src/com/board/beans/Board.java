@@ -12,7 +12,7 @@ public class Board {
     private String fileRealName;
     private int commentCount;
     private String category;
-    
+    private String contentModify;
     
     public int getIdx() {
         return idx;
@@ -80,5 +80,12 @@ public class Board {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+	public String getContentModify() {
+		return contentModify;
+	}
+	public void setContentModify(String contentModify) {
+		this.contentModify = contentModify;
+	}
+	
     
 }

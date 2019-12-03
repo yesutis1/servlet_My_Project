@@ -1,6 +1,21 @@
 
 body{
     section{
+        div.search{
+            height: 60px;
+            div{
+                margin-left: auto; margin-right: auto;
+                width: 700px;
+                display: flex;
+                input{
+                    width: 550px;
+                    margin-right: 5px;
+                }
+                button{
+                    width: 65px;
+                }
+            }
+        }
         table.list{
             tr{
                 text-align: center;
@@ -10,6 +25,7 @@ body{
                     }
                     &.listCategory{
                         width: 170px;
+                        padding: 5px 12px;
                     }
                     &.listTitle{
                         width: 300px;
@@ -49,6 +65,8 @@ body{
                     }
                     &.listFile{
                         width: 140px;
+                        white-space: nowrap;
+                        overflow: hidden;
                     }
                     &.listComment{
                         width: 70px;
